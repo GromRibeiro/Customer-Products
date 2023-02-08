@@ -16,10 +16,12 @@ export default {
     background-color: #222;
     border-top: 4px solid #111;
     color: #fcba03;
-    display: grid;
+    display: flex;
     align-items: center;
     justify-content: center;
     bottom: 0;
     width: 100%;
+    margin-top: 210px;
+    position: fixed;
   }
 </style>

@@ -1,35 +1,31 @@
 <template>
-  <div id="burger-table" v-for="cadastro in cadastros" :key="cadastro.id" v-if="cadastros && cadastro.produto">
+  <div id="burger-table" v-if="cadastrosP">
     <div>
       <div id="burger-table-heading">
         <div class="order-id">#:</div>
         <div>Cliente:</div>
-        <div>Documento:</div>
-        <div>Telefone:</div>
         <div>Tipo do Produto:</div>
         <div>Ações:</div>
       </div>
     </div>
     <div id="burger-table-rows">
-      <div class="burger-table-row" >
+      <div class="burger-table-row" v-for="cadastro in cadastrosP" :key="cadastro.id" >
         <div class="order-number">{{ cadastro.id }}</div>
-        <div>{{ cadastro.nome }}</div>
-        <div>{{ cadastro.documento }}</div>
-        <div>{{ cadastro.telefone }}</div>
+        <div>{{ cadastro.name }}</div>
         <div>{{ cadastro.produto }}</div>
         <div>
-          <select name="status" class="status" @change="updateBurger($event, cadastro.id)">
+          <select name="status" class="status" @change="updateProduto($event, cadastro.id)">
             <option :value="s.tipo" v-for="s in status" :key="s.id" :selected="cadastro.status == s.tipo">
               {{ s.tipo }}
             </option>
           </select>
-          <button class="delete-btn" @click="deleteBurger(cadastro.id)">Cancelar</button>
+          <button class="delete-btn" @click="deleteProduto(cadastro.id)">Apagar</button>
         </div>
       </div>
     </div>
   </div>
   <div v-else>
-    <h2>Não há pedidos no momento!</h2>
+    <h2>Não há produtos no momento!</h2>
   </div>
 </template>
 <script>
@@ -37,35 +33,29 @@
     name: "Dashboard",
     data() {
       return {
-        cadastros: null,
-        burger_id: null,
+        cadastrosP: null,
+        cadastrosP_id: null,
         status: []
       }
     },
     methods: {
       async getProdutos() {
-        const req = await fetch('http://localhost:3000/cadastros')
-
-        const data = await req.json()
-
-        this.cadastros = data
+        const req = await fetch('http://localhost:3000/cadastrosP')
+        this.cadastrosP = await req.json()
 
         // Resgata os status de pedidos
-        this.getStatus()
+        await this.getStatus()
 
       },
       async getStatus() {
 
         const req = await fetch('http://localhost:3000/status')
-
-        const data = await req.json()
-
-        this.status = data
+        this.status = await req.json()
 
       },
-      async deleteBurger(id) {
+      async deleteProduto(id) {
 
-        const req = await fetch(`http://localhost:3000/cadastros/${id}`, {
+        const req = await fetch(`http://localhost:3000/cadastrosP/${id}`, {
           method: "DELETE"
         });
 
@@ -74,20 +64,19 @@
         await this.getProdutos()
 
       },
-      async updateBurger(event, id) {
+      async updateProduto(event, id) {
 
         const option = event.target.value;
 
         const dataJson = JSON.stringify({status: option});
 
-        const req = await fetch(`http://localhost:3000/cadastros/${id}`, {
+        const req = await fetch(`http://localhost:3000/cadastrosP/${id}`, {
           method: "PATCH",
           headers: { "Content-Type" : "application/json" },
           body: dataJson
         });
 
         const res = await req.json()
-
         console.log(res)
 
       }

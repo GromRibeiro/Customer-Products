@@ -4,13 +4,13 @@
       <form id="burger-form" method="POST" @submit="createProduto">
         <div class="input-container">
           <label for="nome">Nome do Produto:</label>
-          <input type="text" id="nome" name="nome" v-model="nome" placeholder="Digite o seu nome">
+          <input type="text" id="nome" name="nome" v-model="name" placeholder="Digite o seu nome">
         </div>
         <div class="input-container">
-          <label for="produto">Escolha o tipo do produto:</label>
+          <label for="produto">Escolha o tipo do Produto:</label>
           <select name="produto" id="produto" v-model="produto">
             <option value="">Selecione o tipo de produto</option>
-            <option v-for="produto in produtos" :key="produto.id" :value="produto.tipo">{{ produto.tipo }}</option>
+            <option v-for="produto in produtos" :key="produto.id" :value="produto.tipo">{{ produto.tipo}}</option>
           </select>
         </div>
         <div class="input-container">
@@ -28,7 +28,7 @@ export default {
   name: "ProdutosForm",
   data() {
     return {
-      nome: null,
+      name: null,
       produtos: null,
       produto: null,
       status: "Ativo",
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     async getProdutos() {
-      const req = await fetch('http://localhost:3000/produtos')
+      const req = await fetch('http://localhost:3000/clientes')
       const data = await req.json()
 
       this.produtos = data.produtos
@@ -47,25 +47,26 @@ export default {
       e.preventDefault()
 
       const data = {
-        nome: this.nome,
+        name: this.name,
         produto: this.produto,
         status: "Ativo"
       }
 
       const dataJson = JSON.stringify(data)
 
-      const req = await fetch("http://localhost:3000/cadastros", {
+      const req = await fetch("http://localhost:3000/cadastrosP", {
         method: "POST",
         headers: { "Content-Type" : "application/json" },
         body: dataJson
       });
 
       const res = await req.json()
-      this.msg = "Pedido realizado com sucesso!"
+      this.msg = "Produto cadastrado com sucesso!"
       // clear message
       setTimeout(() => this.msg = "", 3000)
       // limpar campos
-      this.nome = ""
+      this.name = ""
+      this.produto = ""
     }
   },
   mounted () {
@@ -102,21 +103,6 @@ input, select {
   width: 300px;
 }
 
-#opcionais-container {
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-#opcionais-title {
-  width: 100%;
-}
-
-.checkbox-container {
-  display: flex;
-  align-items: flex-start;
-  width: 50%;
-  margin-bottom: 20px;
-}
 
 .checkbox-container span,
 .checkbox-container input {
@@ -135,7 +121,7 @@ input, select {
   border: 2px solid #222;
   padding: 10px;
   font-size: 16px;
-  margin: 0 auto;
+  margin-top: 20px;
   cursor: pointer;
   transition: .5s;
 }
