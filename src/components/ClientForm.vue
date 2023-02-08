@@ -55,7 +55,7 @@ export default {
 
       const dataJson = JSON.stringify(data)    
 
-      const req = await fetch("http://localhost:3000/cadastros", {
+      const req = await fetch("http://localhost:3000/cadastrosC", {
         method: "POST",
         headers: { "Content-Type" : "application/json" },
         body: dataJson
@@ -109,21 +109,6 @@ export default {
     width: 300px;
   }
 
-  #opcionais-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  #opcionais-title {
-    width: 100%;
-  }
-
-  .checkbox-container {
-    display: flex;
-    align-items: flex-start;
-    width: 50%;
-    margin-bottom: 20px;
-  }
 
   .checkbox-container span,
   .checkbox-container input {
@@ -142,7 +127,7 @@ export default {
     border: 2px solid #222;
     padding: 10px;
     font-size: 16px;
-    margin: 0 auto;
+    margin-top: 20px;
     cursor: pointer;
     transition: .5s;
   }

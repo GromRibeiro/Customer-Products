@@ -1,5 +1,5 @@
 <template>
-  <div id="burger-table" v-if="cadastros">
+  <div id="burger-table" v-if="cadastrosC">
     <div>
       <div id="burger-table-heading">
         <div class="order-id">#:</div>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div id="burger-table-rows">
-      <div class="burger-table-row" v-for="cadastro in cadastros" :key="cadastro.id">
+      <div class="burger-table-row" v-for="cadastro in cadastrosC" :key="cadastro.id">
         <div class="order-number">{{ cadastro.id }}</div>
         <div>{{ cadastro.nome }}</div>
         <div>{{ cadastro.documento }}</div>
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div v-else>
-    <h2>Não há pedidos no momento!</h2>
+    <h2>Não há clientes no momento!</h2>
   </div>
 </template>
 <script>
@@ -35,16 +35,15 @@ export default {
   name: "ClientsDash",
   data() {
     return {
-      cadastros: null,
+      cadastrosC: null,
       cadastros_id: null,
       status: []
     }
   },
   methods: {
     async getCliente() {
-      const req = await fetch('http://localhost:3000/cadastros')
-      const data = await req.json()
-      this.cadastros = data
+      const req = await fetch('http://localhost:3000/cadastrosC')
+      this.cadastrosC = await req.json()
 
       // Resgata os status de pedidos
       await this.getStatus()
@@ -53,22 +52,15 @@ export default {
     async getStatus() {
 
       const req = await fetch('http://localhost:3000/status')
-
-      const data = await req.json()
-
-      this.status = data
+      this.status = await req.json()
 
     },
     async deleteClient(id) {
 
-      const req = await fetch(`http://localhost:3000/cadastros/${id}`, {
+      const req = await fetch(`http://localhost:3000/cadastrosC/${id}`, {
         method: "DELETE"
       });
-
-      const res = await req.json()
-
       await this.getCliente()
-
     },
     async updateClient(event, id) {
 
@@ -76,7 +68,7 @@ export default {
 
       const dataJson = JSON.stringify({status: option});
 
-      const req = await fetch(`http://localhost:3000/cadastros/${id}`, {
+      const req = await fetch(`http://localhost:3000/cadastrosC/${id}`, {
         method: "PATCH",
         headers: { "Content-Type" : "application/json" },
         body: dataJson
