@@ -1,4 +1,4 @@
-# make_your_burger
+# customers products Test
 
 ## Project setup
 ```
@@ -8,6 +8,11 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+```
+
+### Start backend serve
+```
+npm run backend
 ```
 
 ### Compiles and minifies for production
