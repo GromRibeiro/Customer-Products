@@ -1,0 +1,29 @@
+{
+  "clientes": {
+    "produtos": [
+      {
+        "id": 1,
+        "tipo": "Calçado"
+      },
+      {
+        "id": 2,
+        "tipo": "Vestuário"
+      },
+      {
+        "id": 3,
+        "tipo": "Acessório"
+      }
+    ]
+  },
+  "status": [
+    {
+      "id": 1,
+      "tipo": "Ativo"
+    },
+    {
+      "id": 2,
+      "tipo": "Inativo"
+    }
+  ],
+  "cadastros": []
+}
