@@ -1,9 +1,9 @@
 # customers products Test
 
-##Setup clone the repository
-...
+## Setup clone the repository
+```
 git clone https://github.com/GromRibeiro/Customer-Products
-...
+```
 
 ## Project setup
 ```
