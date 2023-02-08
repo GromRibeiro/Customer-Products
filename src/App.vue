@@ -15,7 +15,7 @@ export default {
   data: function() {
     return {
       logo_src: "/img/logo.png",
-      app_name: "Make Your Burger"
+      app_name: "customers products"
     }
   },
   components: {
